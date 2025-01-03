@@ -20,3 +20,24 @@ vim.api.nvim_create_autocmd('VimResized', {
   pattern = '*',
   command = 'wincmd =',
 })
+
+-- Close Neotree before persisting the session.
+-- This prevents a bug.
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'PersistenceSavePre',
+  callback = function()
+    vim.cmd 'Neotree close'
+  end,
+  desc = 'Close Neo-tree before saving session',
+})
+
+-- Restores highlighting from treesitter.
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    if vim.fn.argc() == 0 then
+      require('persistence').load { last = true }
+      -- Re-detect filetypes
+      vim.cmd 'filetype detect'
+    end
+  end,
+})

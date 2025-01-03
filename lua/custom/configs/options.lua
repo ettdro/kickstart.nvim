@@ -22,6 +22,9 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
