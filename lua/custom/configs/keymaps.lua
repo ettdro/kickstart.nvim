@@ -24,3 +24,5 @@ map('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete current buffer' })
 map('n', '<leader>bl', ':Telescope buffers<CR>', { desc = 'List buffers' })
 
 map('n', '<leader>Tt', "<cmd>lua require('neotest').run.run()<cr>", { desc = 'Run Test' })
+map('n', '<leader>Twr', "<cmd>lua require('neotest').run.run({ vitestCommand = 'vitest --watch' })<cr>", { desc = 'Run Watch' })
+-- map('n', '<leader>Twf', "<cmd>lua require('neotest').run.run({ vim.fn.expand('%'), vitestCommand = 'vitest --watch' })<cr>", { desc = 'Run Watch File' })
