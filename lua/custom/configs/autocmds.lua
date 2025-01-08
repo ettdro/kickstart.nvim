@@ -9,12 +9,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Reload Config on Save
-vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = 'init.lua',
-  command = 'source <afile> | Lazy sync',
-})
-
 -- Resize Splits Automatically
 vim.api.nvim_create_autocmd('VimResized', {
   pattern = '*',
@@ -34,9 +28,17 @@ vim.api.nvim_create_autocmd('User', {
 -- Restores highlighting from treesitter.
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
-    if vim.fn.argc() == 0 then
-      require('persistence').load { last = true }
-      -- Re-detect filetypes
+    if vim.fn.argv(0) == '' then -- Only restore if no file is passed as an argument
+      local last_cwd = vim.g.last_project_cwd -- Track last known project
+      local current_cwd = vim.fn.getcwd()
+
+      if last_cwd and last_cwd ~= current_cwd then
+        vim.cmd 'bufdo bwipeout' -- Clear buffers only when switching projects
+      end
+
+      vim.g.last_project_cwd = current_cwd
+      require('persistence').load()
+
       vim.cmd 'filetype detect'
     end
   end,

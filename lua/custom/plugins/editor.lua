@@ -37,7 +37,7 @@ return {
     },
     event = 'VeryLazy',
     opts = {
-      preset = 'modern',
+      preset = 'helix',
       plugins = {
         marks = true,
         registers = true,
@@ -71,6 +71,7 @@ return {
         { '<leader>tn', '<cmd>set number!<cr>', desc = 'Line Numbers' },
         { '<leader>tr', '<cmd>set relativenumber!<cr>', desc = 'Relative Numbers' },
         { '<leader>tw', '<cmd>set wrap!<cr>', desc = 'Word Wrap' },
+        { '<leader>T', group = 'testing' },
       },
     },
     keys = {
@@ -103,7 +104,7 @@ return {
     cmd = 'Neotree',
     keys = {
       {
-        '<leader>e',
+        '<C-e>',
         function()
           require('neo-tree.command').execute { toggle = true, dir = vim.loop.cwd() }
         end,

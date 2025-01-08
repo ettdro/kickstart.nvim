@@ -21,3 +21,6 @@ map('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move block DOWN' })
 map('n', '<leader>bp', ':bprev<CR>', { desc = 'Go to previous buffer' })
 map('n', '<leader>bn', ':bnext<CR>', { desc = 'Go to next buffer' })
 map('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete current buffer' })
+map('n', '<leader>bl', ':Telescope buffers<CR>', { desc = 'List buffers' })
+
+map('n', '<leader>Tt', "<cmd>lua require('neotest').run.run()<cr>", { desc = 'Run Test' })
