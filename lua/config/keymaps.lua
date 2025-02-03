@@ -1,10 +1,6 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-map("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
-
-map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
 -- Blocking arrow keys for navigation
 map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')

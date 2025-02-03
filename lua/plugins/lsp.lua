@@ -45,34 +45,34 @@ return {
       lspconfig.volar.setup {
         capabilities = capabilities,
         on_attach = on_attach,
-        -- filetypes = { "vue" },
-        -- init_options = {
-        --   typescript = {
-        --     tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-        --   },
-        --   vue = {
-        --     hybridMode = false, -- Enable hybrid mode
-        --   },
-        --   languageFeatures = {
-        --     references = true,
-        --     implementation = true,
-        --     definition = true,
-        --     typeDefinition = true,
-        --     callHierarchy = true,
-        --     hover = true,
-        --     rename = true,
-        --     renameFileRefactoring = true,
-        --     signatureHelp = true,
-        --     codeAction = true,
-        --     workspaceSymbol = true,
-        --     completion = {
-        --       defaultTagNameCase = "kebab",
-        --       defaultAttrNameCase = "kebab",
-        --       getDocumentNameCasesRequest = false,
-        --       getDocumentSelectionRequest = false,
-        --     },
-        --   },
-        -- },
+        filetypes = { "vue" },
+        init_options = {
+          typescript = {
+            tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+          },
+          vue = {
+            hybridMode = false, -- Enable hybrid mode
+          },
+          languageFeatures = {
+            references = true,
+            implementation = true,
+            definition = true,
+            typeDefinition = true,
+            callHierarchy = true,
+            hover = true,
+            rename = true,
+            renameFileRefactoring = true,
+            signatureHelp = true,
+            codeAction = true,
+            workspaceSymbol = true,
+            completion = {
+              defaultTagNameCase = "kebab",
+              defaultAttrNameCase = "kebab",
+              getDocumentNameCasesRequest = false,
+              getDocumentSelectionRequest = false,
+            },
+          },
+        },
         keys = {},
       }
 
