@@ -43,6 +43,7 @@ return {
         table.insert(cmd_parts, "--no-coverage")
         table.insert(cmd_parts, "--colors=always")
         table.insert(cmd_parts, "--testdox")
+        table.insert(cmd_parts, "--process-isolation")
       else
         table.insert(cmd_parts, vim.fn.shellescape(file_path))
       end

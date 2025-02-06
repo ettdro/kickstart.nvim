@@ -17,16 +17,17 @@ return {
         { "<leader>f", group = "files/find" },
         {
           "<leader> ",
-          function()
-            require("fzf-lua").files()
-          end,
+          "<cmd>Telescope find_files<cr>",
           desc = "Find file",
         },
         { "<leader>g", group = "git" },
+        { "gl", group = "logs" },
         { "<leader>gh", group = "hunks" },
         { "<leader>q", group = "sessions" },
         { "<leader>s", group = "search" },
         { "<leader>t", group = "testing" },
+        { "<leader>T", group = "terminal" },
+        { "<leader>u", group = "ui" },
       },
     },
     keys = {

@@ -9,6 +9,9 @@ return {
       },
       suggestion = {
         auto_trigger = true,
+        keymap = {
+          accept_word = "<M-;>",
+        },
       },
     },
   },

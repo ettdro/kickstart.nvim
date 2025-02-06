@@ -5,35 +5,15 @@ return {
     opts = {
       current_line_blame = true,
       current_line_blame_opts = {
-        delay = 300,
+        delay = 100,
       },
       signs_staged_enable = true,
       signcolumn = true,
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>ghR",
-        function()
-          require("gitsigns").reset_hunk { vim.fn.line ".", vim.fn.line "v" }
-        end,
-        desc = "Reset Hunk",
-      },
-    },
-  },
-  {
-    "kdheepak/lazygit.nvim",
-    cmd = {
-      "LazyGit",
-      "LazyGitConfig",
-      "LazyGitCurrentFile",
-      "LazyGitFilter",
-      "LazyGitFilterCurrentFile",
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    keys = {
-      { "<leader>gg", "<cmd>LazyGit<CR>", desc = "LazyGit" },
+      { "<leader>ghR", function() require("gitsigns").reset_hunk { vim.fn.line ".", vim.fn.line "v" } end, desc = "Reset single line", },
+      { "<leader>ghr", function() require("gitsigns").reset_hunk() end, desc = "Reset reset hunk" }
     },
   },
 }

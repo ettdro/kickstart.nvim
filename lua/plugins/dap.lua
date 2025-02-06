@@ -40,6 +40,7 @@ return {
         dapui.close()
       end
     end,
+    -- stylua: ignore
     keys = {
       {
         "<leader>dr",
@@ -55,32 +56,13 @@ return {
         desc = "Run Debugging",
       },
       { "<leader>db", "<cmd>DapToggleBreakpoint<CR>", desc = "Toggle Breakpoint" },
-      {
-        "<leader>ds",
-        function()
-          require("dap").terminate()
-          require("dapui").toggle()
-        end,
-        desc = "Stop Debugging",
-      },
+      { "<leader>dS", function() require("dap").terminate() require("dapui").toggle() end, desc = "Stop Debugging", },
       { "<F5>", "<cmd>DapContinue<CR>", desc = "Continue Debugging" },
       { "<F10>", "<cmd>DapStepOver<CR>", desc = "Step Over" },
-      { "<F11>", "<cmd>DapStepInto<CR>", desc = "Step Into" },
+      { "<F9>", "<cmd>DapStepInto<CR>", desc = "Step Into" },
       { "<F12>", "<cmd>DapRestartFrame<CR>", desc = "Restart Frame" },
-      {
-        "<leader>dwa",
-        function()
-          require("dapui").elements.watches.add()
-        end,
-        desc = "Add Watch",
-      },
-      {
-        "<leader>dwr",
-        function()
-          require("dapui").elements.watches.remove()
-        end,
-        desc = "Remove Watch",
-      },
+      { "<leader>dwa", function() require("dapui").elements.watches.add() end, desc = "Add Watch", },
+      { "<leader>dwr", function() require("dapui").elements.watches.remove() end, desc = "Remove Watch", },
     },
   },
 }
