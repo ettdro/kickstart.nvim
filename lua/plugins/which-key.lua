@@ -12,6 +12,7 @@ return {
         { "<leader>a", group = "ai" },
         { "<leader>b", group = "buffers" },
         { "<leader>c", group = "code", icon = "" },
+        { "<leader>cs", group = "swap" },
         { "<leader>d", group = "debug" },
         { "<leader>dw", group = "watches" },
         { "<leader>f", group = "files/find" },

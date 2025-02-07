@@ -5,6 +5,10 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
+      animate = {
+        duration = 5,
+        fps = 250,
+      },
       bufdelete = {},
       dashboard = {},
       explorer = {},

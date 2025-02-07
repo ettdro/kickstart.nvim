@@ -7,6 +7,7 @@ return {
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
       "marilari88/neotest-vitest",
+      "olimorris/neotest-phpunit",
       "thenbe/neotest-playwright",
     },
     config = function()
@@ -16,6 +17,19 @@ return {
           require "neotest-vitest" {
             filter_dir = function(name, _, _)
               return name ~= "node_modules" and name ~= "playwright"
+            end,
+          },
+          require "neotest-phpunit" {
+            phpunit_cmd = function()
+              return "/Users/ettdro/test.sh"
+            end,
+            env = {
+              CONTAINER = "php",
+              REMOTE_PHPUNIT_BIN = "vendor/bin/phpunit",
+              LOCAL_PROJECT_PATH = os.getenv "CLEARESTATE_API_PROJECT_PATH",
+            },
+            filter_dir = function(name, _, _)
+              return name ~= "node_modules" and name ~= "playwright" and name ~= "vendor"
             end,
           },
           require("neotest-playwright").adapter {

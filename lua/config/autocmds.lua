@@ -15,15 +15,12 @@ vim.api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
 })
 
--- Close Neotree before persisting the session.
--- This prevents a bug.
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "PersistenceSavePre",
---   callback = function()
---     vim.cmd "Neotree close"
---   end,
---   desc = "Close Neo-tree before saving session",
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "php",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
+})
 
 -- Save buffer when leaving
 vim.api.nvim_create_autocmd("BufLeave", {
