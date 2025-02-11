@@ -30,6 +30,9 @@ return {
         { "<leader>T", group = "terminal" },
         { "<leader>u", group = "ui" },
       },
+      icons = {
+        separator = "",
+      },
     },
     keys = {
       {

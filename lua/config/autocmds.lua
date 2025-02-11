@@ -23,14 +23,14 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Save buffer when leaving
-vim.api.nvim_create_autocmd("BufLeave", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.modified and vim.bo.buftype == "" then
-      vim.cmd "write"
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufLeave", {
+--   pattern = "*",
+--   callback = function()
+--     if vim.bo.modified and vim.bo.buftype == "" then
+--       vim.cmd "write"
+--     end
+--   end,
+-- })
 
 local progress = vim.defaulttable()
 vim.api.nvim_create_autocmd("LspProgress", {

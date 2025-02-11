@@ -13,6 +13,10 @@ return {
     config = function()
       --- @diagnostic disable-next-line
       require("neotest").setup {
+        icons = {
+          passed = "",
+          failed = "",
+        },
         adapters = {
           require "neotest-vitest" {
             filter_dir = function(name, _, _)

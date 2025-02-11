@@ -41,7 +41,7 @@ containerFilePath=$(echo "${1}" | sed 's|/Users/ettdro/Documents/clearestate/cle
 testFilter=${4}
 
 # Run the tests
-if [ -n "$test_filter" ]; then
+if [ -n "$testFilter" ]; then
   echo "docker exec -t $container php $phpunitPath --no-coverage --filter=\"$testFilter\" $containerFilePath --log-junit=${localPhpUnitResultPath}"
   docker exec -t $container php $phpunitPath --no-coverage --filter="$testFilter" $containerFilePath --log-junit=${localPhpUnitResultPath}
 else

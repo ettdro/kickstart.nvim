@@ -11,6 +11,7 @@ return {
         auto_trigger = true,
         keymap = {
           accept_word = "<M-;>",
+          accept_line = "<M-RET>",
         },
       },
     },
