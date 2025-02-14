@@ -5,13 +5,11 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      animate = {
-        duration = 5,
-        fps = 250,
-      },
       bufdelete = {},
       dashboard = {},
-      explorer = {},
+      explorer = {
+        enabled = false,
+      },
       indent = {},
       input = {},
       lazygit = {},
@@ -25,13 +23,13 @@ return {
     keys = {
       -- Top Pickers & Explorer
       { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files", },
-      { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers", },
+      { "<leader>,", function() Snacks.picker.buffers({ sort_lastused = false }) end, desc = "Buffers", },
       { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep", },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History", },
       { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History", },
       { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer", },
       -- find
-      { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers", },
+      { "<leader>fb", function() Snacks.picker.buffers({ sort_lastused = false }) end, desc = "Buffers", },
       { "<leader>fc", function() Snacks.picker.files { cwd = vim.fn.stdpath "config" } end, desc = "Find Config File", },
       { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files", },
       { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files", },
@@ -75,8 +73,7 @@ return {
       -- LSP
       { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", },
       { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration", },
-      { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References",
-      },
+      { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References", },
       { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", },
       { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition", },
       { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", },
@@ -89,12 +86,9 @@ return {
       { "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History", },
       { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer", },
       { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", },
-      { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" },
-      },
+      { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" }},
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit", },
       { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications", },
-      { "<c-/>", function() Snacks.terminal() end, desc = "Toggle Terminal", },
-      { "<c-_>", function() Snacks.terminal() end, desc = "which_key_ignore", },
       { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" },
       },
       { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" },
@@ -111,7 +105,6 @@ return {
           }
         end,
       },
-      {"<leader>T", function () Snacks.terminal() end, desc = "Terminal"}
     },
     init = function()
       vim.api.nvim_create_autocmd("User", {

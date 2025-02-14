@@ -18,7 +18,7 @@ return {
       },
       accept = {
         auto_brackets = {
-          enabled = true,
+          enabled = false,
         },
       },
       menu = {
@@ -34,7 +34,7 @@ return {
         lsp = {
           min_keyword_length = 0, -- Number of characters to trigger porvider
           score_offset = 0, -- Boost/penalize the score of the items
-          max_items = 10,
+          max_items = 20,
         },
         path = {
           min_keyword_length = 0,

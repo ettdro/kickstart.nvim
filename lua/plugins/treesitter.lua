@@ -24,6 +24,7 @@ return {
         "python",
         "query",
         "regex",
+        "scss",
         "tsx",
         "typescript",
         "vim",
@@ -40,10 +41,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-k>",
-          node_incremental = "<C-k>",
+          init_selection = "<C-n>",
+          node_incremental = "<C-n>",
           scope_incremental = false,
-          node_decremental = "<C-j>",
+          node_decremental = "<C-p>",
         },
       },
       textobjects = {

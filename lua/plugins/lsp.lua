@@ -12,7 +12,24 @@ return {
       capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
       local servers = {
-        volar = { "vue" },
+        -- volar = { "vue" },
+        ts_ls = {
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
+                languages = { "javascript", "typescript", "vue" },
+              },
+            },
+          },
+          filetypes = {
+            "javascript",
+            "typescript",
+            "vue",
+          },
+          single_file_support = true,
+        },
         intelephense = {
           settings = {
             intelephense = {
@@ -56,12 +73,8 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
 
-          map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-          map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-          map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
-          map("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
