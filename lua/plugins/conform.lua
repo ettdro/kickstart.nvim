@@ -20,6 +20,7 @@ return {
         html = { "prettier" },
         css = { "prettier" },
         scss = { "prettier" },
+        blade = { "blade-formatter" },
       },
       formatters = {
         prettier = {

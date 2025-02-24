@@ -10,7 +10,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
-vim.opt.smoothscroll = true
+-- vim.opt.smoothscroll = true
 vim.opt.wrap = false
 vim.opt.virtualedit = "block"
 
@@ -20,7 +20,9 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 
--- vim.opt.scrolloff = 999
+vim.opt.scrolloff = 999
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1

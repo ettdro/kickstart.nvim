@@ -1,9 +1,15 @@
 return {
   "saghen/blink.cmp",
-  dependencies = { "rafamadriz/friendly-snippets" },
+  dependencies = {
+    { "L3MON4D3/LuaSnip", version = "v2.*" },
+    { "rafamadriz/friendly-snippets" },
+  },
   event = "InsertEnter",
   version = "*",
   opts = {
+    snippets = {
+      preset = "luasnip",
+    },
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
@@ -18,7 +24,7 @@ return {
       },
       accept = {
         auto_brackets = {
-          enabled = false,
+          enabled = true,
         },
       },
       menu = {
@@ -29,7 +35,7 @@ return {
       },
     },
     sources = {
-      default = { "lsp", "path", "buffer", "snippets" },
+      default = { "lsp", "path", "snippets", "buffer" },
       providers = {
         lsp = {
           min_keyword_length = 0, -- Number of characters to trigger porvider

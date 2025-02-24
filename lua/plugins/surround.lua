@@ -1,8 +1,8 @@
 return {
   {
-    "tpope/vim-surround",
-    config = function()
-      vim.g.surround_no_mappings = 1
-    end,
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    opts = {},
   },
 }

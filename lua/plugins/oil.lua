@@ -14,5 +14,8 @@ return {
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
+    keys = {
+      { "-", "<Cmd>Oil<CR>", desc = "Open Oil" },
+    },
   },
 }
