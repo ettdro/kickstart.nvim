@@ -1,7 +1,6 @@
 return {
   -- "pmizio/typescript-tools.nvim",
   -- dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  -- opts = {},
   -- ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
   -- config = function()
   --   require("typescript-tools").setup {
@@ -22,7 +21,6 @@ return {
   --         "@vue/typescript-plugin",
   --       },
   --       tsserver_file_preferences = function(ft)
-  --         -- Some "ifology" using `ft` of opened file
   --         return {
   --           includeInlayParameterNameHints = "all",
   --           includeCompletionsForModuleExports = true,
@@ -30,7 +28,6 @@ return {
   --         }
   --       end,
   --       tsserver_format_options = function(ft)
-  --         -- Some "ifology" using `ft` of opened file
   --         return {
   --           allowIncompleteCompletions = false,
   --           allowRenameOfImportPath = false,

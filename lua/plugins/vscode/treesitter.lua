@@ -50,10 +50,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-n>",
-          node_incremental = "<C-n>",
+          init_selection = "]x",
+          node_incremental = "]x",
           scope_incremental = false,
-          node_decremental = "<C-p>",
+          node_decremental = "[x",
         },
       },
       textobjects = {
@@ -70,6 +70,9 @@ return {
             ["ai"] = "@conditional.outer",
             ["il"] = "@loop.inner",
             ["al"] = "@loop.outer",
+            ["as"] = "@statement.outer",
+            ["is"] = "@statement.inner",
+            ["a/"] = "@comment.outer",
           },
         },
         move = {

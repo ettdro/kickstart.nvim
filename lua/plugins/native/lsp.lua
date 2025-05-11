@@ -13,8 +13,30 @@ return {
 
       local servers = {
         -- volar = { "vue" },
+        -- eslint = {
+        --   filetypes = {
+        --     "javascript",
+        --     "typescript",
+        --     "typescriptreact",
+        --     "javascriptreact",
+        --     "vue",
+        --   },
+        -- },
         ts_ls = {
           init_options = {
+            preferences = {
+              importModuleSpecifierPreference = "non-relative",
+            },
+            suggestionActions = {
+              enabled = true,
+            },
+            codeActionsOnSave = {
+              source = {
+                organizeImports = true,
+                fixAll = true,
+                addMissingImports = true,
+              },
+            },
             plugins = {
               {
                 name = "@vue/typescript-plugin",
