@@ -50,16 +50,20 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "]x",
-          node_incremental = "]x",
+          init_selection = "<CR>",
+          node_incremental = "<CR>",
           scope_incremental = false,
-          node_decremental = "[x",
+          node_decremental = "<BS>",
         },
       },
       textobjects = {
         select = {
           enable = true,
           keymaps = {
+            ["av"] = "@assignment.outer",
+            ["iv"] = "@assignment.inner",
+            ["lv"] = "@assignment.lhs",
+            ["rv"] = "@assignment.rhs",
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",

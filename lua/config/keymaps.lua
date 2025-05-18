@@ -7,6 +7,12 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 
+map("n", "<leader>td", function()
+  vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
+    print(input)
+  end)
+end)
+
 -- Blocking arrow keys for navigation
 map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')

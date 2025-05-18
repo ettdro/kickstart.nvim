@@ -22,23 +22,23 @@ vim.cmd "command! Q q"
 vim.cmd "command! WQ wq"
 vim.cmd "command! Wq wq"
 
--- Move lines
-map("n", "<M-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-map("n", "<M-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
-map("i", "<M-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "<M-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "<M-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<M-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+-- Window management
+map("n", "<leader>wh", ":split<CR>", opts "Split window horizontally")
+map("n", "<leader>wv", ":vsplit<CR>", opts "Split window vertically")
+map("n", "<leader>w]", vscode_action "workbench.action.moveEditorToNextGroup", opts "Move to next group")
+map("n", "<leader>w]", vscode_action "workbench.action.moveEditorToPreviousGroup", opts "Move to next group")
 
 -- Buffer management
 map("n", "<S-h>", vscode_action "workbench.action.previousEditor", opts "Previous buffer")
 map("n", "<S-l>", vscode_action "workbench.action.nextEditor", opts "Next buffer")
 
-map("n", "<leader><space>", vscode_action "workbench.action.quickOpen")
+map("n", "<leader>ff", vscode_action "workbench.action.quickOpen")
 map("n", "<leader>cr", vscode_action "editor.action.rename", opts "Rename")
 map("n", "<leader>ca", vscode_action "editor.action.quickFix", opts "Code action")
 map("n", "<leader>e", vscode_action "workbench.files.action.focusFilesExplorer", opts "Open Explorer")
 map("n", '<leader>s"', "<cmd>reg<CR>", opts "Registers")
+
+map("n", "gs", vscode_action "workbench.action.gotoSymbol")
 
 local function find_file(filename)
   -- Use fd (faster) or fallback to find
