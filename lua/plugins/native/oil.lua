@@ -8,6 +8,9 @@ return {
       columns = {
         "icon",
       },
+      float = {
+        padding = 8,
+      },
       view_options = {
         show_hidden = true,
       },
@@ -15,7 +18,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     keys = {
-      { "-", "<Cmd>Oil<CR>", desc = "Open Oil" },
+      { "-", "<Cmd>Oil --float<CR>", desc = "Open Oil" },
     },
   },
 }

@@ -4,22 +4,10 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
-    init = function(plugin)
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require "nvim-treesitter.query_predicates"
-
-      require("nvim-treesitter.parsers").get_parser_configs().blade = {
-        install_info = {
-          url = "https://github.com/EmranMR/tree-sitter-blade",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-        filetype = "blade",
-      }
-    end,
     opts = {
       ensure_installed = {
         "bash",
+        "blade",
         "c",
         "css",
         "html",
@@ -30,6 +18,7 @@ return {
         "markdown_inline",
         "nginx",
         "php",
+        "php_only",
         "python",
         "query",
         "regex",
@@ -60,16 +49,16 @@ return {
         select = {
           enable = true,
           keymaps = {
-            ["av"] = "@assignment.outer",
-            ["iv"] = "@assignment.inner",
-            ["lv"] = "@assignment.lhs",
-            ["rv"] = "@assignment.rhs",
+            ["aa"] = "@assignment.outer",
+            ["ia"] = "@assignment.inner",
+            ["la"] = "@assignment.lhs",
+            ["ra"] = "@assignment.rhs",
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",
             ["ic"] = "@class.inner",
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
+            ["ap"] = "@parameter.outer",
+            ["ip"] = "@parameter.inner",
             ["ii"] = "@conditional.inner",
             ["ai"] = "@conditional.outer",
             ["il"] = "@loop.inner",

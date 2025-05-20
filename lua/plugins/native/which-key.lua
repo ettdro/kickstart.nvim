@@ -17,7 +17,6 @@ return {
         { "<leader>dw", group = "watches" },
         { "<leader>f", group = "files/find" },
         { "<leader>g", group = "git" },
-        { "gl", group = "logs" },
         { "<leader>gh", group = "hunks" },
         { "<leader>q", group = "sessions" },
         { "<leader>s", group = "search" },

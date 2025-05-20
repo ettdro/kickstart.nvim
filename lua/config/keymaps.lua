@@ -44,8 +44,8 @@ map("v", "<M-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc 
 map("v", "<M-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 -- Buffer management
-map("n", "<S-Tab>", ":bprev<CR>", opts "Previous buffer")
-map("n", "<Tab>", ":bnext<CR>", opts "Next buffer")
+map("n", "<S-h>", ":bprev<CR>", opts "Previous buffer")
+map("n", "<S-l>", ":bnext<CR>", opts "Next buffer")
 map("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete current buffer" })
 map("n", "<leader>bc", ":bwipeout<CR>", { desc = "Close buffer" })
 map("n", "<leader>bo", function()
@@ -59,15 +59,12 @@ map("n", "<leader>bo", function()
   end
 end, { desc = "Close all buffers except current" })
 
-map("n", "<S-u>", ":redo<CR>", { desc = "Redo" })
-
--- Window management
-map("n", "<leader>wh", ":split<CR>", opts "Split window horizontally")
-map("n", "<leader>wv", ":vsplit<CR>", opts "Split window vertically")
-
 -- Treesitter
 map("n", "g;", ":lua require('nvim-treesitter.textobjects.repeatable_move').repeat_last_move_next()<CR>", { desc = "Move to next text object" })
 map("n", "g,", ":lua require('nvim-treesitter.textobjects.repeatable_move').repeat_last_move_previous()<CR>", { desc = "Move to previous text object" })
+map("n", "gtc", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, opts "Go to context")
 
 local function find_file(filename)
   -- Use fd (faster) or fallback to find

@@ -24,7 +24,7 @@ return {
             show_modified_status = true, -- Shows indicator when the buffer is modified.
             mode = 0,
             max_length = vim.o.columns * 2 / 5, -- Maximum width of buffers component,
-            use_mode_colors = false,
+            use_mode_colors = true,
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
               alternate_file = "#", -- Text to show to identify the alternate file
