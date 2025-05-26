@@ -4,22 +4,10 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
-    init = function(plugin)
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require "nvim-treesitter.query_predicates"
-
-      require("nvim-treesitter.parsers").get_parser_configs().blade = {
-        install_info = {
-          url = "https://github.com/EmranMR/tree-sitter-blade",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-        filetype = "blade",
-      }
-    end,
     opts = {
       ensure_installed = {
         "bash",
+        "blade",
         "c",
         "css",
         "html",
@@ -30,6 +18,7 @@ return {
         "markdown_inline",
         "nginx",
         "php",
+        "php_only",
         "python",
         "query",
         "regex",
@@ -60,16 +49,20 @@ return {
         select = {
           enable = true,
           keymaps = {
-            ["aa"] = "@assignment.outer",
-            ["ia"] = "@assignment.inner",
-            ["la"] = "@assignment.lhs",
-            ["ra"] = "@assignment.rhs",
+            ["a="] = "@assignment.outer",
+            ["i="] = "@assignment.inner",
+            ["l="] = "@assignment.lhs",
+            ["r="] = "@assignment.rhs",
+            ["a:"] = { query = "@property.outer", desc = "Select outer part of an object property" },
+            ["i:"] = { query = "@property.inner", desc = "Select inner part of an object property" },
+            ["l:"] = { query = "@property.lhs", desc = "Select left part of an object property" },
+            ["r:"] = { query = "@property.rhs", desc = "Select right part of an object property" },
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",
             ["ic"] = "@class.inner",
-            ["ap"] = "@parameter.outer",
-            ["ip"] = "@parameter.inner",
+            ["aa"] = "@parameter.outer",
+            ["ia"] = "@parameter.inner",
             ["ii"] = "@conditional.inner",
             ["ai"] = "@conditional.outer",
             ["il"] = "@loop.inner",
@@ -113,12 +106,23 @@ return {
           enable = true,
           swap_next = {
             ["<leader>csa"] = "@parameter.inner",
+            ["<leader>csp"] = "@proptrueerty.outer", -- swap object property with next
           },
           swap_previous = {
             ["<leader>csA"] = "@parameter.inner",
+            ["<leader>csP"] = "@property.outer", -- swap object property with next
           },
         },
       },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      enable = vim.g.vscode ~= true,
+      max_lines = 2,
+      multiline_threshold = 2,
     },
   },
 }

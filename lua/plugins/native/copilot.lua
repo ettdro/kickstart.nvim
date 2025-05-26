@@ -1,8 +1,6 @@
 return {
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {},
+    "github/copilot.vim",
+    config = function() end,
   },
 }

@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     -- Execute code actions before saving
     vim.lsp.buf.code_action {
       context = {
-        only = { "source.removeUnusedImports", "source.fixAll" },
+        only = { "source.removeUnusedImports", "source.addMissingImports" },
         diagnostics = {},
       },
       apply = true,
