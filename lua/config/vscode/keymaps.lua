@@ -25,18 +25,21 @@ vim.cmd "command! Wq wq"
 -- Window management
 map("n", "<leader>wh", ":split<CR>", opts "Split window horizontally")
 map("n", "<leader>wv", ":vsplit<CR>", opts "Split window vertically")
-map("n", "<leader>w]", vscode_action "workbench.action.moveEditorToNextGroup", opts "Move to next group")
-map("n", "<leader>w]", vscode_action "workbench.action.moveEditorToPreviousGroup", opts "Move to next group")
+map("n", "<C-w>a", vscode_action "workbench.action.moveActiveEditorGroupLeft", opts "Move to group to the left")
+map("n", "<C-w>d", vscode_action "workbench.action.moveActiveEditorGroupRight", opts "Move to group to the right")
+map("n", "<C-w>z", vscode_action "workbench.action.joinAllGroups", opts "Move to next group")
+map("n", "<C-w>q", vscode_action "workbench.action.closeEditorsInGroup", opts "Close all editors in group")
 
 -- Buffer management
-map("n", "<S-h>", vscode_action "workbench.action.previousEditor", opts "Previous buffer")
-map("n", "<S-l>", vscode_action "workbench.action.nextEditor", opts "Next buffer")
+-- map("n", "<S-Tab>", vscode_action "workbench.action.previousEditor", opts "Previous buffer")
+-- map("n", "<Tab>", vscode_action "workbench.action.nextEditor", opts "Next buffer")
 
 map("n", "<leader>ff", vscode_action "workbench.action.quickOpen")
 map("n", "<leader>cr", vscode_action "editor.action.rename", opts "Rename")
 map("n", "<leader>ca", vscode_action "editor.action.quickFix", opts "Code action")
 map("n", "<leader>e", vscode_action "workbench.files.action.focusFilesExplorer", opts "Open Explorer")
 map("n", '<leader>s"', "<cmd>reg<CR>", opts "Registers")
+map("n", "<C-c>f", "<cmd>let @+ = @/<CR>", opts "Copy search to clipboard")
 
 map("n", "gs", vscode_action "workbench.action.gotoSymbol")
 

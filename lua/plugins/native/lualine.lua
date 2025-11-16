@@ -4,7 +4,8 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
-        component_separators = { left = "", right = "" },
+        theme = "auto",
+        component_separators = { left = "|", right = "|" },
         section_separators = { left = "", right = "" },
       },
       sections = {
@@ -16,23 +17,29 @@ return {
             end,
           },
         },
-        lualine_b = {
+        lualine_b = { "diff", "diagnostics" },
+        lualine_c = {
           {
-            "buffers",
-            show_filename_only = true, -- Shows shortened relative path when set to false.
-            hide_filename_extension = false, -- Hide filename extension when set to true.
-            show_modified_status = true, -- Shows indicator when the buffer is modified.
-            mode = 0,
-            max_length = vim.o.columns * 2 / 5, -- Maximum width of buffers component,
-            use_mode_colors = true,
+            "filename",
+            color = function()
+              return { fg = vim.bo.modified and "#f7cf19" }
+            end,
             symbols = {
-              modified = " ●", -- Text to show when the buffer is modified
-              alternate_file = "#", -- Text to show to identify the alternate file
-              directory = "", -- Text to show when the buffer is a directory
+              modified = "●",
+              readonly = "󰈈",
+              unnamed = "[No Name]",
+              newfile = "[New]",
             },
           },
+          {
+            "harpoon2",
+            indicators = { "a", "s", "q", "w" },
+            active_indicators = { "A", "S", "Q", "W" },
+            color_active = { fg = "#00AAFF" },
+            _separator = " ",
+            no_harpoon = "Harpoon not loaded",
+          },
         },
-        lualine_c = { "diff" },
       },
     },
   },

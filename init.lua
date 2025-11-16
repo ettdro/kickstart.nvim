@@ -12,10 +12,12 @@ if vim.g.vscode then
   require "config.vscode.options"
   require "config.vscode.keymaps"
   require "config.vscode.autocmds"
+  require "tools"
 else
   require "config.options"
   require "config.keymaps"
   require "config.autocmds"
+  require "tools"
 end
 
 require("lazy").setup {
@@ -29,14 +31,11 @@ require("lazy").setup {
       return not vim.g.vscode
     end,
   },
-  {
-    import = "plugins.vscode",
-    cond = function()
-      return vim.g.vscode
-    end,
-  },
 }
 
 if not vim.g.vscode then
   require("luasnip.loaders.from_lua").load { paths = "~/.config/nvim/lua/snippets" }
 end
+
+-- vim.opt.runtimepath:append(vim.fn.expand "~/.config/nvim-dev")
+-- require "avocado"

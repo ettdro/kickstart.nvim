@@ -9,7 +9,6 @@ return {
       preset = "helix",
       show_help = true,
       spec = {
-        { "<leader>a", group = "ai" },
         { "<leader>b", group = "buffers" },
         { "<leader>c", group = "code", icon = "" },
         { "<leader>cs", group = "swap" },
@@ -18,11 +17,14 @@ return {
         { "<leader>f", group = "files/find" },
         { "<leader>g", group = "git" },
         { "<leader>gh", group = "hunks" },
+        { "<leader>gu", group = "gitsigns ui" },
+        { "<leader>h", group = "harpoon", icon = "󱡀" },
         { "<leader>q", group = "sessions" },
         { "<leader>s", group = "search" },
         { "<leader>t", group = "testing" },
         { "<leader>u", group = "ui" },
         { "<leader>w", group = "windows" },
+        { "<leader>x", group = "diagnostics", icon = "󰒡" },
       },
       icons = {
         separator = "",

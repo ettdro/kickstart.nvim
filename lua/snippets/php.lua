@@ -4,9 +4,27 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 
+-- Function to get filename without extension
+local function get_filename()
+  local filename = vim.fn.expand "%:t:r"
+  return filename ~= "" and filename or "ClassName"
+end
+
 return {
+  s("phpclass", {
+    t "<?php declare(strict_types=1);",
+    t { "", "" },
+    t { "", "" },
+    t "class ",
+    f(get_filename, {}),
+    i(1),
+    t { "", "{" },
+    t { "", "    " },
+    i(0),
+    t { "", "}" },
+  }),
   -- PHP Constructor
-  s("cons", {
+  s("phpcons", {
     t { "public function __construct(" },
     i(1),
     t { ") {", "\t" },
@@ -15,7 +33,7 @@ return {
   }),
 
   -- PHP Array
-  s("arr", {
+  s("phparr", {
     t "$",
     i(1, "array"),
     t " = [",
@@ -25,7 +43,7 @@ return {
   }),
 
   -- PHP foreach loop
-  s("fore", {
+  s("phpfore", {
     t "foreach ($",
     i(1, "array"),
     t " as ",
@@ -36,7 +54,7 @@ return {
   }),
 
   -- PHP if statement
-  s("if", {
+  s("phpif", {
     t "if (",
     i(1, "condition"),
     t { ") {", "\t" },
@@ -45,7 +63,7 @@ return {
   }),
 
   -- PHP Interface
-  s("interface", {
+  s("phpinterface", {
     t "interface ",
     i(1, "InterfaceName"),
     t { " {", "\t" },
@@ -54,7 +72,7 @@ return {
   }),
 
   -- PHP public method
-  s("pub", {
+  s("phppub", {
     t "public function ",
     i(1, "methodName"),
     t "(",
@@ -67,7 +85,7 @@ return {
   }),
 
   -- PHP private method
-  s("priv", {
+  s("phppriv", {
     t "private function ",
     i(1, "methodName"),
     t "(",

@@ -3,26 +3,78 @@ local opts = function(desc)
   return { noremap = true, silent = true, desc = desc }
 end
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.have_nerd_font = true
+map("n", "K", function()
+  vim.lsp.buf.hover {
+    border = "rounded",
+  }
+end, opts "Show hover documentation")
 
-map("n", "<leader>td", function()
-  vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
-    print(input)
+map("n", "<leader>cr", function()
+  local current_word = vim.fn.expand "<cword>"
+  vim.ui.input({ prompt = "Search and replace word '" .. current_word .. "' by: " }, function(word)
+    if word and word ~= "" then
+      vim.cmd(":%s/\\<" .. current_word .. "\\>/" .. vim.fn.escape(word, "/\\") .. "/g")
+    end
   end)
-end)
+end, opts "Search and replace in the current buffer")
 
--- Blocking arrow keys for navigation
-map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-map("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-map("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+-- Replace highlighted text in buffer with entered value
+map("v", "<leader>cx", function()
+  vim.cmd "normal! y"
+  local current_word = vim.fn.getreg '"'
+  vim.ui.input({ prompt = "Replace highlighted text '" .. current_word .. "' by: " }, function(word)
+    if word and word ~= "" then
+      vim.cmd("s/\\%V\\<" .. current_word .. "\\>/" .. vim.fn.escape(word, "/\\") .. "/g")
+    end
+  end)
+end, opts "Search and replace highlighted text in the buffer")
 
-map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- Overridden by vim-tmux-navigator plugin
+-- map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+-- map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+-- map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+-- map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+local function peek_definition()
+  local params = vim.lsp.util.make_position_params(0, "utf-8")
+  return vim.lsp.buf_request(0, "textDocument/definition", params, function(_, result)
+    if result == nil or vim.tbl_isempty(result) then
+      return nil
+    end
+    local _, win_id = vim.lsp.util.preview_location(result[1], { border = "single" })
+    if win_id then
+      vim.api.nvim_set_current_win(win_id)
+    end
+  end)
+end
+
+local function rename_lsp()
+  -- Check if any LSP client supports rename
+  local clients = vim.lsp.get_clients { bufnr = 0 }
+  local has_rename = false
+
+  for _, client in pairs(clients) do
+    if client.server_capabilities.renameProvider then
+      has_rename = true
+      break
+    end
+  end
+
+  if has_rename then
+    vim.lsp.buf.rename()
+  else
+    -- Fallback to search and replace
+    local word = vim.fn.expand "<cword>"
+    vim.ui.input({ prompt = 'Rename "' .. word .. '" to: ', default = word }, function(new_name)
+      if new_name and new_name ~= "" and new_name ~= word then
+        vim.cmd(":%s/\\<" .. vim.fn.escape(word, "/\\") .. "\\>/" .. vim.fn.escape(new_name, "/\\") .. "/g")
+      end
+    end)
+  end
+end
+
+map("n", "grp", peek_definition, opts "Peek Definition")
+map("n", "grn", rename_lsp, opts "Rename symbol (LSP or fallback)")
 
 -- Commands typo handling
 vim.cmd "command! W w"
@@ -30,22 +82,20 @@ vim.cmd "command! Q q"
 vim.cmd "command! WQ wq"
 vim.cmd "command! Wq wq"
 
--- AI
-map({ "n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<cr>", opts "CodeCompanion Actions")
-map({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", opts "CodeCompanion Chat")
-map("v", "ga", "<cmd>CodeCompanionChat Add<cr>", opts "CodeCompanion Chat Add")
-
 -- Move lines
-map("n", "<M-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-map("n", "<M-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
-map("i", "<M-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "<M-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "<M-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<M-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+map("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Buffer management
-map("n", "<S-h>", ":bprev<CR>", opts "Previous buffer")
-map("n", "<S-l>", ":bnext<CR>", opts "Next buffer")
+map("n", "<C-w>gd", function()
+  vim.cmd "vsplit | normal gd"
+end, opts "Go to definition in vertical split")
+map("n", "<Tab>", ":bnext<CR>", { desc = "Go to next buffer" })
+map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Go to previous buffer" })
 map("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete current buffer" })
 map("n", "<leader>bc", ":bwipeout<CR>", { desc = "Close buffer" })
 map("n", "<leader>bo", function()
