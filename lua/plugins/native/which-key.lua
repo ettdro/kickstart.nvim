@@ -1,9 +1,6 @@
 return {
   {
     "folke/which-key.nvim",
-    dependencies = {
-      "echasnovski/mini.nvim",
-    },
     event = "VeryLazy",
     opts = {
       preset = "helix",
@@ -21,7 +18,7 @@ return {
         { "<leader>h", group = "harpoon", icon = "󱡀" },
         { "<leader>q", group = "sessions" },
         { "<leader>s", group = "search" },
-        { "<leader>t", group = "testing" },
+        { "<leader>t", group = "tasks" },
         { "<leader>u", group = "ui" },
         { "<leader>w", group = "windows" },
         { "<leader>x", group = "diagnostics", icon = "󰒡" },

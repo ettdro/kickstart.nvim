@@ -3,12 +3,6 @@ local opts = function(desc)
   return { noremap = true, silent = true, desc = desc }
 end
 
-map("n", "K", function()
-  vim.lsp.buf.hover {
-    border = "rounded",
-  }
-end, opts "Show hover documentation")
-
 map("n", "<leader>cr", function()
   local current_word = vim.fn.expand "<cword>"
   vim.ui.input({ prompt = "Search and replace word '" .. current_word .. "' by: " }, function(word)
@@ -35,46 +29,7 @@ end, opts "Search and replace highlighted text in the buffer")
 -- map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 -- map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
-local function peek_definition()
-  local params = vim.lsp.util.make_position_params(0, "utf-8")
-  return vim.lsp.buf_request(0, "textDocument/definition", params, function(_, result)
-    if result == nil or vim.tbl_isempty(result) then
-      return nil
-    end
-    local _, win_id = vim.lsp.util.preview_location(result[1], { border = "single" })
-    if win_id then
-      vim.api.nvim_set_current_win(win_id)
-    end
-  end)
-end
-
-local function rename_lsp()
-  -- Check if any LSP client supports rename
-  local clients = vim.lsp.get_clients { bufnr = 0 }
-  local has_rename = false
-
-  for _, client in pairs(clients) do
-    if client.server_capabilities.renameProvider then
-      has_rename = true
-      break
-    end
-  end
-
-  if has_rename then
-    vim.lsp.buf.rename()
-  else
-    -- Fallback to search and replace
-    local word = vim.fn.expand "<cword>"
-    vim.ui.input({ prompt = 'Rename "' .. word .. '" to: ', default = word }, function(new_name)
-      if new_name and new_name ~= "" and new_name ~= word then
-        vim.cmd(":%s/\\<" .. vim.fn.escape(word, "/\\") .. "\\>/" .. vim.fn.escape(new_name, "/\\") .. "/g")
-      end
-    end)
-  end
-end
-
-map("n", "grp", peek_definition, opts "Peek Definition")
-map("n", "grn", rename_lsp, opts "Rename symbol (LSP or fallback)")
+map("n", "<leader>cc", "<cmd>ClaudeCode<CR>", opts "Toggle Claude Code")
 
 -- Commands typo handling
 vim.cmd "command! W w"
@@ -110,51 +65,6 @@ map("n", "<leader>bo", function()
 end, { desc = "Close all buffers except current" })
 
 -- Treesitter
-map("n", "g;", ":lua require('nvim-treesitter.textobjects.repeatable_move').repeat_last_move_next()<CR>", { desc = "Move to next text object" })
-map("n", "g,", ":lua require('nvim-treesitter.textobjects.repeatable_move').repeat_last_move_previous()<CR>", { desc = "Move to previous text object" })
 map("n", "gtc", function()
   require("treesitter-context").go_to_context(vim.v.count1)
 end, opts "Go to context")
-
-local function find_file(filename)
-  -- Use fd (faster) or fallback to find
-  local search_cmd = 'fd -t f -p "' .. filename .. '" .' -- fd command
-  if vim.fn.executable "fd" == 0 then
-    search_cmd = 'find . -type f -name "' .. filename .. '"' -- fallback to find
-  end
-
-  local result = vim.fn.systemlist(search_cmd)
-  if #result > 0 then
-    return result[1] -- Return the first match
-  end
-  return nil
-end
-
-local function toggle_vue_test()
-  local file = vim.fn.expand "%:p" -- Get full path of current file
-  local filename = vim.fn.fnamemodify(file, ":t") -- Get filename only
-
-  if filename:match "%.spec%.ts$" then
-    -- Convert test file to Vue component
-    local component_filename = filename:gsub("%.spec%.ts$", ".vue")
-    local component_path = find_file(component_filename)
-    if component_path then
-      vim.cmd("edit " .. component_path)
-    else
-      print("Vue component not found: " .. component_filename)
-    end
-  elseif filename:match "%.vue$" then
-    -- Convert Vue component to test file
-    local test_filename = filename:gsub("%.vue$", ".spec.ts")
-    local test_path = find_file(test_filename)
-    if test_path then
-      vim.cmd("edit " .. test_path)
-    else
-      print("Test file not found: " .. test_filename)
-    end
-  else
-    print "Not a Vue component or test file"
-  end
-end
-
-map("n", "<leader>tg", toggle_vue_test, opts "Toggle between Vue component and test file")

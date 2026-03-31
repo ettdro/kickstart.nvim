@@ -44,6 +44,11 @@ return {
     },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
+      providers = {
+        lsp = {
+          async = true,
+        },
+      },
     },
     cmdline = {
       keymap = { preset = "inherit" },

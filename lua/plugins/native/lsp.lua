@@ -8,95 +8,54 @@ return {
     },
     opts = {},
     config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+      -- Apply blink.cmp capabilities to all servers globally.
+      -- mason-lspconfig auto-enables servers via nvim-lspconfig defaults,
+      -- so manual vim.lsp.enable() calls are not needed.
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      vim.lsp.config("*", { capabilities = capabilities })
 
-      local lsp_enable = function(name, opts)
-        opts = opts or {}
-        opts.capabilities = vim.tbl_deep_extend("force", capabilities, opts.capabilities or {})
-        vim.lsp.enable(name, opts)
-      end
+      -- Per-server overrides (only settings that differ from nvim-lspconfig defaults)
+      -- vim.lsp.config("vtsls", {
+      --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+      --   settings = {
+      --     vtsls = {
+      --       autoUseWorkspaceTsdk = true,
+      --       tsserver = {
+      --         globalPlugins = {
+      --           {
+      --             name = "@vue/typescript-plugin",
+      --             location = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
+      --             languages = { "vue" },
+      --             configNamespace = "typescript",
+      --             enableForWorkspaceTypeScriptVersions = true,
+      --           },
+      --         },
+      --       },
+      --     },
+      --   },
+      -- })
 
-      local lsp_servers = {
-        vue_ls = {
-          filetypes = { "vue" },
-          init_options = {
-            vue = {
-              hybridMode = false,
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+              library = { vim.fn.stdpath "config" },
+              checkThirdParty = false,
             },
+            telemetry = { enable = false },
           },
         },
-        ts_ls = {},
-        intelephense = {
-          filetypes = { "php" },
-          settings = {
-            intelephense = {
-              files = {
-                maxSize = 1000000,
-              },
-            },
-          },
-        },
-        lua_ls = {
-          filetypes = { "lua" },
-          settings = {
-            Lua = {
-              runtime = {
-                version = "LuaJIT",
-              },
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-              },
-              telemetry = {
-                enable = false,
-              },
-            },
-          },
-        },
-        pyright = {
-          filetypes = { "python" },
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = "basic",
-                autoImportCompletions = true,
-                useLibraryCodeForTypes = true,
-              },
-            },
-          },
-        },
-        tailwindcss = {
-          -- exclude a filetype from the default_config
-          filetypes_exclude = { "markdown" },
-          -- add additional filetypes to the default_config
-          filetypes_include = {},
-          -- to fully override the default_config, change the below
-          -- filetypes = {}
+      })
 
-          -- additional settings for the server, e.g:
-          -- tailwindCSS = { includeLanguages = { someLang = "html" } }
-          -- can be addeded to the settings table and will be merged with
-          -- this defaults for Phoenix projects
-          settings = {
-            tailwindCSS = {
-              includeLanguages = {
-                elixir = "html-eex",
-                eelixir = "html-eex",
-                heex = "html-eex",
-              },
-            },
+      vim.lsp.config("intelephense", {
+        settings = {
+          intelephense = {
+            files = { maxSize = 1000000 },
           },
         },
-      }
-
-      for name, opts in pairs(lsp_servers) do
-        vim.lsp.config(name, opts)
-        lsp_enable(name, opts)
-      end
+      })
     end,
   },
 }

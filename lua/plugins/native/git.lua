@@ -14,9 +14,9 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufEnter",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
-      current_line_blame = false,
+      current_line_blame = true,
       current_line_blame_opts = {
         delay = 100,
       },
@@ -31,7 +31,6 @@ return {
       { "<leader>ghs", function() require("gitsigns").stage_hunk() end, desc = "Stage hunk" },
       { "<leader>ghu", function() require("gitsigns").undo_stage_hunk() end, desc = "Undo stage hunk" },
       { "<leader>ghp", function() require("gitsigns").preview_hunk() end, desc = "Preview hunk" },
-      { "<leader>ghi", function() require("gitsigns").preview_hunk_inline() end, desc = "Preview hunk inline" },
       { "<leader>ghd", function() require("gitsigns").diffthis() end, desc = "Diff this" },
       { "<leader>ghD", function() require("gitsigns").diffthis('~') end, desc = "Diff this ~" },
       {
@@ -46,7 +45,6 @@ return {
       { "<leader>ghN", function() require("gitsigns").prev_hunk() end, desc = "Previous hunk" },
       { "<leader>ghl", function() require("gitsigns").setqflist('all') end, desc = "Set qflist for all hunks" },
       { "<leader>ghL", function() require("gitsigns").setqflist('current') end, desc = "Set qflist for current hunk" },
-      { "<leader>ghp", function() require("gitsigns").preview_hunk() end, desc = "Preview hunk" },
       { "<leader>ghP", function() require("gitsigns").preview_hunk_inline() end, desc = "Preview hunk inline" },
       { "<leader>gud", function() require("gitsigns").toggle_deleted() end, desc = "Toggle deleted" },
       { "<leader>gus", function() require("gitsigns").toggle_signs() end, desc = "Toggle signs" },
