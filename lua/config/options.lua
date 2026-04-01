@@ -29,11 +29,6 @@ vim.o.clipboard = "unnamedplus"
 vim.o.termguicolors = true
 vim.o.winborder = "rounded"
 
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldlevel = 99 -- open all folds by default
-vim.o.foldlevelstart = 99
-
 vim.o.jumpoptions = "view"
 vim.o.formatoptions = "qjl1"
 vim.o.splitkeep = "screen"

@@ -63,8 +63,3 @@ map("n", "<leader>bo", function()
     end
   end
 end, { desc = "Close all buffers except current" })
-
--- Treesitter
-map("n", "gtc", function()
-  require("treesitter-context").go_to_context(vim.v.count1)
-end, opts "Go to context")

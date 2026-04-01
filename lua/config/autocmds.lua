@@ -22,9 +22,10 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("VimEnter", {
---   group = vim.api.nvim_create_augroup("autoupdate", { clear = true }),
---   callback = function()
---     require("lazy").update { show = false }
---   end,
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lua", "elixir", "php" },
+  callback = function()
+    -- syntax highlighting, provided by Neovim
+    vim.treesitter.start()
+  end,
+})
